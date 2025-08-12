@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { type Song, type ITunesSongResponse, adaptITunesResponseToSong } from "../types/types";
-
-
+import { type Song, type ITunesSongResponse, adaptITunesResponseToSong } from "../../types/types";
 
 type SongGridProps = {
   query: string;
   onSelectSong: (song: any) => void;
-}
-export const SongGrid:React.FC<SongGridProps> = ({ query, onSelectSong}) => {
+};
+
+export const SongGrid: React.FC<SongGridProps> = ({ query, onSelectSong }) => {
   const [musicGrid, setMusicGrid] = useState<Array<Song>>([]);
   const mockData = Array(6)
     .fill(null)
@@ -29,9 +28,6 @@ export const SongGrid:React.FC<SongGridProps> = ({ query, onSelectSong}) => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
     }));
 
-
-
-  // Read local file data.json from public/assets
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,15 +38,12 @@ export const SongGrid:React.FC<SongGridProps> = ({ query, onSelectSong}) => {
             }
             return res.json();
           });
-          
-          if('results' in dataJson){
-            const songs: Array<Song> = dataJson.results.map((item: ITunesSongResponse) => adaptITunesResponseToSong(item));
-            setMusicGrid(songs);
-            console.log(songs);
-          }
-          
-          
-        
+
+        if ('results' in dataJson) {
+          const songs: Array<Song> = dataJson.results.map((item: ITunesSongResponse) => adaptITunesResponseToSong(item));
+          setMusicGrid(songs);
+          console.log(songs);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
         setMusicGrid(mockData);
@@ -60,9 +53,15 @@ export const SongGrid:React.FC<SongGridProps> = ({ query, onSelectSong}) => {
   }, [query]);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div
+      className="grid grid-cols-2 md:grid-cols-4 gap-4"
+      // style={{ backgroundColor: "#1C1C1E", minHeight: "100vh" }}
+    >
       {musicGrid.length === 0 && query && (
-        <p className="col-span-full text-center text-gray-500">
+        <p
+          className="col-span-full text-center"
+          style={{ color: "#8E8E93" }}
+        >
           No results yet...
         </p>
       )}
@@ -71,20 +70,42 @@ export const SongGrid:React.FC<SongGridProps> = ({ query, onSelectSong}) => {
         <div
           key={song.id}
           onClick={() => onSelectSong(song)}
-          className="bg-white shadow-lg rounded-xl overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-200"
+          className="shadow-lg rounded-xl overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-200"
+          style={{
+            backgroundColor: "#F2F2F7",
+            color: "#000000",
+            border: "1.5px solid #D1D1D6"
+          }}
         >
           {/* album image */}
           <img
             src={song.album.image}
             alt={song.title}
             className="w-full h-40 object-cover"
+            style={{ background: "#D1D1D6" }}
           />
 
           {/* rest info */}
           <div className="p-3">
-            <h3 className="text-sm font-bold truncate">{song.title}</h3>
-            <p className="text-xs text-gray-500 truncate">{song.artist.name}</p>
-            <span className="inline-block mt-1 px-2 py-1 text-xs bg-gray-100 rounded-full text-gray-600">
+            <h3
+              className="text-sm font-bold truncate"
+              style={{ color: "#000000" }}
+            >
+              {song.title}
+            </h3>
+            <p
+              className="text-xs truncate"
+              style={{ color: "#8E8E93" }}
+            >
+              {song.artist.name}
+            </p>
+            <span
+              className="inline-block mt-1 px-2 py-1 text-xs rounded-full"
+              style={{
+                background: "#FA2C56",
+                color: "#fff"
+              }}
+            >
               {song.genre}
             </span>
           </div>
@@ -92,6 +113,4 @@ export const SongGrid:React.FC<SongGridProps> = ({ query, onSelectSong}) => {
       ))}
     </div>
   );
-}
-
-
+};
