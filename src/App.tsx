@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SearchBar from "./components/SearchBar";
+import { SearchBar } from "./components/SearchBar";
 import { SongGrid } from "./components/SongGridComponents/SongGrid";
 import SongModal from "./components/SongModal";
 

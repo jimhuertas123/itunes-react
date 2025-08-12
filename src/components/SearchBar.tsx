@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function SearchBar({ onSearch }: { onSearch: (q: string) => void }) {
+export const SearchBar = ({ onSearch, ...props }: { onSearch: (q: string) => void } & React.HTMLAttributes<HTMLFormElement>) => {
   const [input, setInput] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -9,7 +9,7 @@ export default function SearchBar({ onSearch }: { onSearch: (q: string) => void 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+    <form onSubmit={handleSubmit} {...props} className="flex gap-2 mb-6">
       <input
         type="text"
         placeholder="Search for a song or artist..."

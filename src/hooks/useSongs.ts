@@ -1,36 +1,31 @@
 import { useEffect, useState } from "react";
-import { type Song, type ITunesSongResponse, adaptITunesResponseToSong } from "../types";
+import { type Song } from "../types";
+import { fetchSongs } from "../services/songService";
 
-export const useSongs = (query: string)=>{
+
+export const useSongs = (query: string) => {
     const [musicResponse, setMusicResponse] = useState<Array<Song>>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
+            setError(null);
             try {
-                const dataJson = await fetch('/data.json')
-                .then(res => {
-                    setLoading(true);
-                    if (!res.ok) {
-                    throw new Error('Network response was not ok');
-                    }
-                    return res.json();
-                })
-                
+                const dataJson = await fetchSongs(query);
                 await new Promise(resolve => setTimeout(resolve, 3000));
-                if ('results' in dataJson) {
-                    setLoading(false);
-                    const songs: Array<Song> = dataJson.results.map((item: ITunesSongResponse) => adaptITunesResponseToSong(item));
-                    setMusicResponse(songs);
-                }
+                setMusicResponse(dataJson);
+
             } catch (error) {
-                setLoading(false);
                 setError(error as Error);
+                setMusicResponse([]);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
     }, [query]);
 
-  return { musicResponse, loading, error };
+    return { musicResponse, loading, error };
 }
