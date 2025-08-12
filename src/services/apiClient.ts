@@ -1,0 +1,1 @@
+export const iTunesApi = 'https://itunes.apple.com/search';

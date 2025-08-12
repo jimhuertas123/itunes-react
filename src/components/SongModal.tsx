@@ -1,11 +1,11 @@
-import type { mockSong } from "../assets/example";
+import type { Song } from "../types";
 
 export default function SongModal({
   song,
   isOpen,
   onClose,
 }: {
-  song: typeof mockSong;
+  song: Song;
   isOpen: boolean;
   onClose: () => void;
 }) {
@@ -15,22 +15,23 @@ export default function SongModal({
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
       style={{
-        background: "rgba(28,28,30,0.7)", // Background Dark with opacity
+        background: "rgba(28,28,30,0.7)",
         backdropFilter: "blur(8px)",
       }}
     >
       <div
         className="p-6 rounded-lg max-w-lg w-full relative shadow-lg"
         style={{
-          background: "#F2F2F7", // Card Background
-          border: "1px solid #D1D1D6", // Borders / Dividers
+          background: "#F2F2F7",
+          border: "1px solid #D1D1D6", 
         }}
       >
         {/* close button */}
         <button
-          className="absolute top-2 right-2"
+          className="absolute top-2 right-4"
           style={{
-            color: "#8E8E93", // Text Secondary
+            color: "#8E8E93",
+            fontSize: "1.5rem",
           }}
           onClick={onClose}
         >
@@ -43,20 +44,20 @@ export default function SongModal({
           alt={song.album.name}
           className="w-48 h-48 mx-auto rounded-lg shadow"
           style={{
-            border: "2px solid #FA2C56", // Primary Accent
+            border: "2px solid #FA2C56",
           }}
         />
 
         {/* rest info */}
         <h2
           className="text-2xl font-bold mt-4 text-center"
-          style={{ color: "#000000" }} // Text Primary
+          style={{ color: "#000000" }}
         >
           {song.title}
         </h2>
         <p
           className="text-center"
-          style={{ color: "#8E8E93" }} // Text Secondary
+          style={{ color: "#8E8E93" }} 
         >
           {song.album.name}
         </p>
@@ -68,12 +69,12 @@ export default function SongModal({
             alt={song.artist.name}
             className="w-12 h-12 rounded-full"
             style={{
-              border: "2px solid #FF375F", // Secondary Accent
+              border: "2px solid #FF375F", 
             }}
           />
           <span
             className="text-lg font-medium"
-            style={{ color: "#000000" }} // Text Primary
+            style={{ color: "#000000" }} 
           >
             {song.artist.name}
           </span>
@@ -102,8 +103,8 @@ export default function SongModal({
           <div
             className="mt-4 p-3 rounded max-h-40 overflow-y-auto text-sm"
             style={{
-              background: "#FFFFFF", // Background Light
-              color: "#000000", // Text Primary
+              background: "#FFFFFF",
+              color: "#000000", 
               border: "1px solid #D1D1D6",
             }}
           >
