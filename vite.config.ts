@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/api': 'http://localhost:5173'
+      '/api': 'https://itunes-react-git-main-jimhuertas123s-projects.vercel.app/'
     }
   }
 })
