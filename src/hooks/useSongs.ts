@@ -14,9 +14,7 @@ export const useSongs = (query: string) => {
             setError(null);
             try {
                 const dataJson = await fetchSongs(query);
-                await new Promise(resolve => setTimeout(resolve, 3000));
                 setMusicResponse(dataJson);
-
             } catch (error) {
                 setError(error as Error);
                 setMusicResponse([]);

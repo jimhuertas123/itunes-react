@@ -1,4 +1,4 @@
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 
 const SearchSVG = () => (
   <svg
@@ -19,12 +19,24 @@ const SearchSVG = () => (
 
 export const SearchBar = ({ onSearch, ...props }: { onSearch: (q: string) => void } & React.HTMLAttributes<HTMLFormElement>) => {
   const [input, setInput] = useState("");
-  // const deferredSearch = useDeferredValue(input)
-	// const isPending = useSpinDelay(search !== deferredSearch)
+
+  useEffect(()=>{
+    console.count("just once");
+    
+  },[]);
+
+  useEffect(() => {
+    const getData = setTimeout(() => {
+      onSearch(input);
+    }, 300);
+
+    return () => clearTimeout(getData);
+  }, [input]);
+
+  const deferredSearch = useDeferredValue(input);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(input);
   };
 
   return (
@@ -32,8 +44,10 @@ export const SearchBar = ({ onSearch, ...props }: { onSearch: (q: string) => voi
       <input
         type="text"
         placeholder="Search for a song or artist..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        value={deferredSearch}
+        onChange={(e) => {
+          setInput(e.target.value)
+        }}
         className="flex-1 border border-[#D1D1D6] bg-[#F2F2F7] text-[#000000] rounded-lg px-4 py-2 focus:border-[#FA2C56] focus:outline-none placeholder:text-[#8E8E93]"
       />
       <button
