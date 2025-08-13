@@ -1,25 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import type { ITunesResults, ITunesSongResponse } from '../types';
-
+import type { ITunesSongResponse } from '../types';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 const USE_REAL_API = process.env.USE_REAL_API === 'true';
 
-type Response = {
-    req: {
-        query: { 
-            term?: string; 
-            limit?: number | undefined; 
-            media?: string
-        };
-    }
-    res: { 
-        json: (
-            arg0: { resultCount: number; results: ITunesResults[];}
-        ) => any
-    }
-}
-
-export default async function handler({req, res}: Response ) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { term = '', limit = 50, media = 'music' } = req.query;
 
   if (USE_REAL_API) {
