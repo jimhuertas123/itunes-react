@@ -1,6 +1,11 @@
 import type { Song } from "./Song";
 
-export interface ITunesSongResponse {
+export type ITunesSongResponse = {
+  resultCount: number;
+  results: ITunesResults[]
+}
+
+export interface ITunesResults {
     artistId: number;
     artistName: string;
     artistViewUrl: string;
@@ -34,9 +39,9 @@ export interface ITunesSongResponse {
     trackTimeMillis: number;
     trackViewUrl: string;
     wrapperType: string;
-}
-
-export function adaptITunesResponseToSong(response: ITunesSongResponse): Song {
+};
+ 
+export function adaptITunesResponseToSong(response: ITunesResults): Song {
   return {
     id: response.trackId.toString(),
     title: response.trackName,
