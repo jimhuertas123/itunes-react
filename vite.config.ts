@@ -8,9 +8,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: {
-    proxy: {
-      '/api': 'https://itunes-react-git-main-jimhuertas123s-projects.vercel.app/'
-    }
-  }
 })
