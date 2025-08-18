@@ -42,6 +42,7 @@ export interface ITunesResults {
 };
  
 export function adaptITunesResponseToSong(response: ITunesResults): Song {
+  const reselaseDate = new Date(response.releaseDate)
   return {
     id: response.trackId.toString(),
     title: response.trackName,
@@ -53,7 +54,7 @@ export function adaptITunesResponseToSong(response: ITunesResults): Song {
       name: response.collectionName,
       image: response.artworkUrl100,
     },
-    releaseDate: response.releaseDate,
+    releaseDate: `${reselaseDate.getMonth()}/${reselaseDate.getDay()}/${reselaseDate.getFullYear()}`,
     genre: response.primaryGenreName,
     previewUrl: response.previewUrl,
   };

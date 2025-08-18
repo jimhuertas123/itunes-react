@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+.modal-close-btn {
+    color: #8E8E93;
+    font-size: 1.5rem;
+    transition: color 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.modal-close-btn:hover {
+    color: #FA2C56;
+    transform: scale(1.2);
+}

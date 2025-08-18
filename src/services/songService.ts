@@ -1,6 +1,6 @@
 import type { Song } from "../types/Song";
 import { adaptITunesResponseToSong, type ITunesResults, type ITunesSongResponse } from "../types";
-import { apiConfig, iTunesApi } from "./apiClient";
+import { iTunesApi } from "./apiClient";
 
 const cachedQuery = new Map<string, { songs: Song[]; timestamp: number }>();
 const CACHE_TTL = 3 * 60 * 60 * 1000;
@@ -49,10 +49,14 @@ export async function fetchSongs(query: string): Promise<Song[]> {
 
 export async function fetchItunesAPISongs(query: string): Promise<Array<Song>> {
     try {
-        const res = await fetch(`${iTunesApi}?term=${query}&media=music&deploy=${apiConfig.useDeployApi ? 'true' : 'false'}`);
-        if (!res.ok) throw new Error('Network response was not ok');
-        const dataJson = await res.json() as ITunesSongResponse;
 
+        // const res = await fetch(`${iTunesApi}?term=${query}&media=music&deploy=${apiConfig.useDeployApi ? 'true' : 'false'}`);
+        const res = await fetch(`${iTunesApi}?term=${query}&media=music&deploy=false`);
+        if (!res.ok) throw new Error('Network response was not ok');
+
+        const dataJson = await res.json() as ITunesSongResponse;
+        console.log(dataJson);
+        
         return dataJson.results.map((item: ITunesResults) => adaptITunesResponseToSong(item));
 
     } catch (error) {
