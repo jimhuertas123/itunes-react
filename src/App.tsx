@@ -22,21 +22,21 @@ export default function App() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#F2F2F7",
+        background: "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
         color: "#000000",
       }}
     >
       <div
         className="max-w-4xl mx-auto py-8 px-4 rounded-lg"
-        style={{ backgroundColor: "#F2F2F7" }}
+        style={{ backgroundColor: "transparent" }}
       >
         <h1
           className="text-3xl font-bold mb-6 text-center"
           style={{
-            color: "#FA2C56", 
+            color: "#f0f0f0", 
           }}
         >
-          🎵 iTunes Search
+          ♬ Tune Raider
         </h1>
 
         <SearchBar onSearch={setQuery} />

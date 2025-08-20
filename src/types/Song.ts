@@ -1,16 +1,20 @@
 export interface Song {
   id: string;
   title: string;
-  artist: {
+  rating: number;
+  artists: Array<{
+    id: string;
     name: string;
-    image: string;
-  };
+  }>;
   album: {
     name: string;
+    type_album: string;
     image: string;
+    avatarImage: string;
   };
   releaseDate: string;
-  genre: string;
   previewUrl?: string;
-  lyrics?: string;
+  link_to_song: string
+  explicit: boolean;
+  is_playable: boolean;
 }

@@ -1,2 +1,3 @@
 export * from './Song';
-export * from './ITunesResponse';
+export * from './SpotifyResponse';
+export * from './SpotifyArtist';

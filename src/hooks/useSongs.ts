@@ -4,7 +4,7 @@ import { fetchSongs } from "../services/songService";
 
 
 export const useSongs = (query: string) => {
-    const [musicResponse, setMusicResponse] = useState<Array<Song>>([]);
+    const [musicResponse, setMusicResponse] = useState<Array<Song> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -15,7 +15,6 @@ export const useSongs = (query: string) => {
             try {
                 const dataJson = await fetchSongs(query);
                 setMusicResponse(dataJson);
-
             } catch (error) {
                 setError(error as Error);
                 setMusicResponse([]);
